@@ -23,11 +23,15 @@ namespace maze
       void save(std::vector<std::vector<uint32_t>> vect, std::string filename);
       std::vector<std::vector<uint32_t>> load(std::string filename);
 
+      void raw_save(std::vector<std::vector<uint32_t>> vect, std::string filename);
+
     private:
       static constexpr uint32_t factor = 20u;
       const cv::Vec3b white = cv::Vec3b(255u, 255u, 255u);
       const cv::Vec3b black = cv::Vec3b(0u, 0u, 0u);
       const cv::Vec3b red   = cv::Vec3b(0u,0u,255u);
+      const cv::Vec3b green = cv::Vec3b(0u, 255u, 0u);
+      const cv::Vec3b gray  = cv::Vec3b(211u, 211u, 211u);
   };
 }
 

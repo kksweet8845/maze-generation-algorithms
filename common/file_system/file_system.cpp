@@ -8,6 +8,7 @@
  */ 
 
 #include "file_system.h"
+#include <fstream>
 
 /**
  * @brief   Resizes (20 times bigger) and then saves the input vector-vector as an image.
@@ -30,6 +31,9 @@ void maze::file_system::save(std::vector<std::vector<uint32_t>> vect, std::strin
       else if (maze::maze_generator::hole == vect[y][x])
       {
         mat_vect.at<cv::Vec3b>(y, x) = white;
+      }
+      else if( vect[y][x] == 3 ) {
+        mat_vect.at<cv::Vec3b>(y, x) = gray;  
       }
       else
       {
@@ -83,5 +87,25 @@ std::vector<std::vector<uint32_t>> maze::file_system::load(std::string filename)
   }
 
   return vect;
+}
+
+
+void maze::file_system::raw_save(std::vector<std::vector<uint32_t>> vect, std::string filename) {
+
+  std::fstream file;
+
+  file.open(filename, std::ios::ate | std::ios::app);
+
+  for(int32_t i=0;i<vect.size();i++) {
+    for(int32_t j=0;j<vect.size();j++) {
+      file << vect[i][j];
+      if(j == vect.size()-1)
+        continue;
+      file << " ";
+    }
+    file << "\n";
+  }
+  file << "\n";
+  file.close();
 }
 
